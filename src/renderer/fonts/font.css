@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'LuckyCoin';
+  src: local('LuckyCoin'),
+      url('./LuckyCoin-3zA46.ttf') format('truetype'),
+      url('./Luckycoinregular-ZVB08.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'TimeBurner';
+  src: local('TimeBurner'),
+      url('./Timeburner-xJB8.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TimeBurnerBold';
+  src: local('TimeBurnerBold'),
+      url('./TimeburnerBold-peGR.ttf') format('truetype');
+      font-weight: bolder ;
+}

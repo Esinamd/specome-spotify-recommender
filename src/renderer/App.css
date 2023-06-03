@@ -1,0 +1,236 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+
+ @import './fonts/font.css';
+
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  background: #50d4d5;
+  font-family: TimeBurner;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-family: TimeBurnerBold;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  appearance: none;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+  color: black;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+input {
+  font-family: TimeBurnerBold;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  width: 300px;
+}
+
+input:focus{
+  outline: none;
+
+}
+
+input:hover {
+  background-color: #dcf6f7;
+}
+
+.Title {
+  font-family: 'LuckyCoin';
+}
+
+.Home {
+  font-size: 60px;
+}
+
+.titleHeader {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: -50px;
+  margin: auto;
+}
+
+.footer {
+  position: relative;
+  bottom: -100px;
+  left: 0;
+}
+
+.buttonPos {
+  position: relative;
+  margin: auto;
+}
+
+.homeButton {
+  right: 15px;
+}
+
+.pagebutton {
+    font-size: 25px;
+
+}
+
+.formButton {
+  position: relative;
+  display: flex;
+  justify-content: left;
+  padding-top: 30px;
+}
+
+.menuMain {
+  position: fixed;
+  top: 15px;
+  right: 40px;
+}
+
+.back{
+  position: fixed;
+  left: 35px;
+  top: 30px;
+  font-size: 15px;
+}
+
+.subheadPos{
+  position: fixed;
+  margin: auto;
+  top: 200px;
+  font-size: 30px;
+}
+
+.spotifyLogin{
+  position: relative;
+  top: 30px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.spotifyLogout{
+  position: fixed;
+  top: 100px;
+  left: 30px;
+  margin: auto;
+  font-size: 15px;
+}
+
+.centred {
+  /* position: fixed; */
+  margin:auto;
+  width: 100%;
+}
+
+.renderedList{
+  position: fixed;
+  top: 15%;
+  right: 32%;
+}
+
+.renderedButtons{
+  position: relative;
+  top: 13rem;
+  display: flex;
+  justify-content: center;
+}
+
+.spotSongRes{
+  position: relative;
+  margin: auto;
+  bottom: 0px;
+  right: 6%;
+  max-width: 80%;
+}
+
+h3.spotSongRes {
+  font-size: 15px;
+}
+
+.spotArtRes{
+  position: relative;
+  margin: auto;
+  right: 30%;
+  top: 0px;
+}
+
+.spotResButtons {
+  position: fixed;
+  right: 3%;
+  bottom: auto;
+  margin: auto;
+}
+
+.recSongs {
+  position: relative;
+  right: 26%;
+}
+
+.recArtists {
+  position: relative;
+  right: 15%;
+}
+
+.wave {
+  position: relative;
+  -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0, 0, 0, .2));
+}
+
+.wave span {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  font-size: 2em;
+  animation: animate 2s ease-in-out infinite;
+  animation-delay: calc(.1s*var(--i));
+}
+
+@keyframes animate {
+  0% {
+      transform: translateY(0px);
+  }
+
+  20% {
+      transform: translateY(-20px);
+  }
+
+  40%,
+  100% {
+      transform: translateY(0px);
+  }
+}
+
