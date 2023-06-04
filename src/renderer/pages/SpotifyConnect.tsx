@@ -10,7 +10,6 @@ const SpotifyConnect = () => {
 
   //spotify auth request
   const client_id = '5dfac900abfa4581aad5e7428357e7a2';
-  const client_secret = '5b0b37b94d1d4426b75684bd6610bccd';
   const redirect_uri = 'http://localhost:1212/SpotifyConnect';
   const auth_endpoint = 'https://accounts.spotify.com/authorize';
   const response_type = 'token';
@@ -53,7 +52,6 @@ const SpotifyConnect = () => {
     setToken('');
     window.localStorage.removeItem('token');
     setLoggedIn(false);
-    // window.location.href = `https://accounts.spotify.com/logout?redirect_uri=${redirect_uri}`;
   };
 
   const getArtists = async () => {
@@ -72,8 +70,12 @@ const SpotifyConnect = () => {
       );
       setArtists(response.data.items);
       getArtistsFeatures(response.data.items);
-    } catch {
-      console.log(console.error);
+    } catch (error) {
+      console.log(error);
+      console.log('status', error.response.status);
+      if (error.response.status == 401) {
+        logout();
+      }
     }
   };
 
@@ -277,8 +279,6 @@ const SpotifyConnect = () => {
     submitList({ features: features, type: state.type });
     setClicked(true);
   };
-
-  const logIn = () => {};
 
   return (
     <div>

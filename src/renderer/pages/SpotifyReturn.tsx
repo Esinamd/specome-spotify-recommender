@@ -9,7 +9,6 @@ const SpotifyReturn = () => {
   let showList: any = [];
   let cName = '';
 
-  console.log('state', state);
   if (state.rType == 'songs') {
     cName = 'spotSongRes';
     let recList = [];

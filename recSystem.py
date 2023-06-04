@@ -22,10 +22,12 @@ import pandas as pd
 # import mlrose
 from flask_cors import CORS
 from flask import Flask, request, jsonify
+import os
 
-# import six
-# import sys
-# sys.modules['sklearn.externals.six'] = six
+# ensuring correct path is always used with datasets
+csvdir = os.path.dirname(os.path.abspath(__file__))
+tracksPath = os.path.join(csvdir, 'spotify datasets', 'tracks.csv')
+artistsPath = os.path.join(csvdir, 'spotify datasets', 'artists.csv')
 
 app = Flask(__name__)
 CORS(app)
@@ -124,7 +126,7 @@ def pySpotifyConnect():
         if recType == "artists":
             features = features.drop(
                 columns=["external_urls", "href", "images", "type", "uri", "followers"])
-            dataset = pd.read_csv('spotify datasets/artists.csv')
+            dataset = pd.read_csv(artistsPath)
             cleanPreprocessing(dataset)
             resetIndex(dataset)
             dataset = dataset.drop(columns=["followers"])
@@ -136,7 +138,7 @@ def pySpotifyConnect():
             features = features.drop(columns=["loudness", "liveness", "type", "duration_ms",
                                               "key", "tempo", "uri", "track_href", "analysis_url", "time_signature"])
 
-            dataset = pd.read_csv('spotify datasets/tracks.csv')
+            dataset = pd.read_csv(tracksPath)
             cleanPreprocessing(dataset)
             resetIndex(dataset)
             dataset = dataset.drop(columns=["popularity", "loudness", "liveness", "duration_ms",
@@ -359,9 +361,9 @@ def logRegTraining(dataset):
     lgLabels = lg.predict(x_test)
     print("lg accuracy", accuracy_score(lgLabels, y_test))
 
-    cm = confusion_matrix(y_test, lgLabels)
-    display_matrix = ConfusionMatrixDisplay(cm).plot()
-    display_matrix.figure_.savefig("RecSysConfMatrix.png")
+    # cm = confusion_matrix(y_test, lgLabels)
+    # display_matrix = ConfusionMatrixDisplay(cm).plot()
+    # display_matrix.figure_.savefig("RecSysConfMatrix.png")
 
     return lg
 
@@ -678,7 +680,7 @@ def recommendSpotify(simScores, indices, spotifyList, dataset, recType, N=10):
 
 
 def mainTracks():
-    tracksDS = pd.read_csv('spotify datasets/tracks.csv')
+    tracksDS = pd.read_csv(tracksPath)
 
     cleanPreprocessing(tracksDS)
     # resetIndex(tracksDS)
@@ -701,7 +703,7 @@ def mainTracks():
 
 
 def mainArtists():
-    artistsDS = pd.read_csv('spotify datasets/artists.csv')
+    artistsDS = pd.read_csv(artistsPath)
 
     cleanPreprocessing(artistsDS)
     # resetIndex(artistsDS)

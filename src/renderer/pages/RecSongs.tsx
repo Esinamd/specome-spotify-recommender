@@ -6,8 +6,8 @@ const closeApp = () => {
 
 const RecSongs = () => {
   let { state } = useLocation();
-  console.log(state.listSongs);
-  console.log(state.listArtists);
+  // console.log(state.listSongs);
+  // console.log(state.listArtists);
   const playlist = [];
 
   for (let i = 0; i < state.listSongs.length; i++) {
