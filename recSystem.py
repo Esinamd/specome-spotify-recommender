@@ -23,10 +23,13 @@ import pandas as pd
 import os
 from flask_cors import CORS
 from flask import Flask, request, jsonify
+import os
 
-# import six
-# import sys
-# sys.modules['sklearn.externals.six'] = six
+# ensuring correct path is always used with datasets
+csvdir = os.path.dirname(os.path.abspath(__file__))
+tracksPath = os.path.join(csvdir, 'spotify datasets', 'tracks.csv')
+artistsPath = os.path.join(csvdir, 'spotify datasets', 'artists.csv')
+
 app = Flask(__name__)
 CORS(app)
 
@@ -116,16 +119,8 @@ def pyPageArtists2():
     else:
         return jsonify({'message': "artists2"})
 
-@app.route('/')
-def index():
-    return "Hello, Flask!"
-
-
 @ app.route('/SpotifyConnect', methods=['POST','GET'])
 def pySpotifyConnect():
-    print("ENTERED")
-    print("request",request)
-    print("request method", request.method)
     if request.method == 'POST':
         data = request.get_json()
         features = data["features"]

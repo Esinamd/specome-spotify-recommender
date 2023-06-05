@@ -7,6 +7,12 @@ const SpotifyConnect = () => {
   const navigate = useNavigate();
   let { state } = useLocation();
   console.log(state);
+  if (state) {
+    sessionStorage.setItem('type', state.type);
+  }
+  console.log('begin');
+  let currType = sessionStorage.getItem('type');
+  console.log('session start', currType);
 
   //spotify auth request
   const client_id = '5dfac900abfa4581aad5e7428357e7a2';
@@ -52,7 +58,6 @@ const SpotifyConnect = () => {
     setToken('');
     window.localStorage.removeItem('token');
     setLoggedIn(false);
-    // window.location.href = `https://accounts.spotify.com/logout?redirect_uri=${redirect_uri}`;
   };
 
   const getArtists = async () => {
@@ -176,8 +181,8 @@ const SpotifyConnect = () => {
   };
 
   const showTops = () => {
-    console.log('preclick', clicked);
-    if (state.type == 'songs' && loggedIn) {
+    console.log('session type', currType);
+    if (currType == 'songs' && loggedIn) {
       if (showTopList) {
         return (
           <div>
@@ -207,8 +212,7 @@ const SpotifyConnect = () => {
           </div>
         );
       }
-    } else if (state.type == 'artists' && loggedIn) {
-      console.log('clicked', clicked);
+    } else if (currType == 'artists' && loggedIn) {
       if (showTopList) {
         return (
           <div>
@@ -226,8 +230,6 @@ const SpotifyConnect = () => {
                 showRecButton()
               )}
             </div>
-
-            {}
           </div>
         );
       } else {
@@ -252,10 +254,10 @@ const SpotifyConnect = () => {
         <div>
           <h3>
             Want to see your SpecoMe recommendations based on your top{' '}
-            {state.type}?
+            {currType}?
           </h3>
           {loggedIn && (
-            <Link to="/SpotifyReturn" state={{ list: data, rType: state.type }}>
+            <Link to="/SpotifyReturn" state={{ list: data, rType: currType }}>
               <button style={{ width: 200, marginLeft: 180 }}>
                 Let's See!
               </button>
@@ -289,14 +291,22 @@ const SpotifyConnect = () => {
 
   const handleChange = () => {
     console.log('features', features);
-    submitList({ features: features, type: state.type });
+    submitList({ features: features, type: currType });
     setClicked(true);
+  };
+
+  const goBack = () => {
+    if (currType == 'songs') {
+      navigate('/Songs1');
+    } else if (currType == 'artists') {
+      navigate('/Artists1');
+    }
   };
 
   return (
     <div>
       <div>
-        <button className="back" onClick={() => navigate(-1)}>
+        <button className="back" onClick={goBack}>
           Back
         </button>
       </div>

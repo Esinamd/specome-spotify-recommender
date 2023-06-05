@@ -1,4 +1,4 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import PageSongs1 from './pages/PageSongs1';
@@ -15,6 +15,7 @@ export default function App() {
     <>
       <Router>
         <Routes>
+          <Route path="/index.html" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/Songs1" element={<PageSongs1 />} />
           <Route path="/Songs2" element={<PageSongs2 />} />

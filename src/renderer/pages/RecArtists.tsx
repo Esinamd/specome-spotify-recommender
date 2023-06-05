@@ -7,7 +7,7 @@ const closeApp = () => {
 const RecArtists = () => {
   let { state } = useLocation();
 
-  console.log(state);
+  // console.log(state);
   const showPlaylist = state.list.map((artist: any) => <ul>{artist}</ul>);
 
   return (
