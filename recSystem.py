@@ -20,16 +20,21 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 # import mlrose
+import os
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 
 # import six
 # import sys
 # sys.modules['sklearn.externals.six'] = six
-
 app = Flask(__name__)
 CORS(app)
 
+app.debug = True
+
+csvdir = os.path.dirname(os.path.abspath(__file__))
+tracksPath = os.path.join(csvdir, 'spotify datasets', 'tracks.csv')
+artistsPath = os.path.join(csvdir, 'spotify datasets', 'artists.csv')
 
 @app.route("/Songs2", methods=['GET', 'POST'])
 def pyPageSongs2():
@@ -111,9 +116,16 @@ def pyPageArtists2():
     else:
         return jsonify({'message': "artists2"})
 
+@app.route('/')
+def index():
+    return "Hello, Flask!"
 
-@ app.route("/SpotifyConnect", methods=['GET', 'POST'])
+
+@ app.route('/SpotifyConnect', methods=['POST','GET'])
 def pySpotifyConnect():
+    print("ENTERED")
+    print("request",request)
+    print("request method", request.method)
     if request.method == 'POST':
         data = request.get_json()
         features = data["features"]
@@ -124,7 +136,7 @@ def pySpotifyConnect():
         if recType == "artists":
             features = features.drop(
                 columns=["external_urls", "href", "images", "type", "uri", "followers"])
-            dataset = pd.read_csv('spotify datasets/artists.csv')
+            dataset = pd.read_csv(artistsPath)
             cleanPreprocessing(dataset)
             resetIndex(dataset)
             dataset = dataset.drop(columns=["followers"])
@@ -136,7 +148,7 @@ def pySpotifyConnect():
             features = features.drop(columns=["loudness", "liveness", "type", "duration_ms",
                                               "key", "tempo", "uri", "track_href", "analysis_url", "time_signature"])
 
-            dataset = pd.read_csv('spotify datasets/tracks.csv')
+            dataset = pd.read_csv(tracksPath)
             cleanPreprocessing(dataset)
             resetIndex(dataset)
             dataset = dataset.drop(columns=["popularity", "loudness", "liveness", "duration_ms",
@@ -166,7 +178,10 @@ def pySpotifyConnect():
         # spotifyDict = {'list': playlist}
         return jsonify(playlist)
     else:
-        return jsonify({'message': "SpotifyConnect"})
+        print("ENTERED")
+        print("request",request)
+        print("request method", request.method)
+        return jsonify({'message': "SpotifyConnect artists and tracks"})
 
 
 if __name__ == "__main__":
@@ -359,9 +374,9 @@ def logRegTraining(dataset):
     lgLabels = lg.predict(x_test)
     print("lg accuracy", accuracy_score(lgLabels, y_test))
 
-    cm = confusion_matrix(y_test, lgLabels)
-    display_matrix = ConfusionMatrixDisplay(cm).plot()
-    display_matrix.figure_.savefig("RecSysConfMatrix.png")
+    # cm = confusion_matrix(y_test, lgLabels)
+    # display_matrix = ConfusionMatrixDisplay(cm).plot()
+    # display_matrix.figure_.savefig("RecSysConfMatrix.png")
 
     return lg
 
@@ -678,7 +693,7 @@ def recommendSpotify(simScores, indices, spotifyList, dataset, recType, N=10):
 
 
 def mainTracks():
-    tracksDS = pd.read_csv('spotify datasets/tracks.csv')
+    tracksDS = pd.read_csv(tracksPath)
 
     cleanPreprocessing(tracksDS)
     # resetIndex(tracksDS)
@@ -701,7 +716,7 @@ def mainTracks():
 
 
 def mainArtists():
-    artistsDS = pd.read_csv('spotify datasets/artists.csv')
+    artistsDS = pd.read_csv(artistsPath)
 
     cleanPreprocessing(artistsDS)
     # resetIndex(artistsDS)
