@@ -11,3 +11,4 @@ SpecoMe is a Spotify recommender system 🎶 - get recommendations for songs and
 
 ### Notes
 This is still under development. If you would like to use with your Spotify account, please contact me as each new user must be onboarded as per the Spotify for Developers guidelines.
+Please ensure port 5000 is free.
